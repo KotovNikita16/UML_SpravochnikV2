@@ -59,11 +59,17 @@ namespace UMLCatalog.Controllers
         {
             if (ModelState.IsValid)
             {
+                using (var binaryReader = new BinaryReader(el.File.OpenReadStream()))
+                {
+                    el.Picture = binaryReader.ReadBytes((int)el.File.Length);
+                    el.ImgType = el.File.ContentType;
+                }
                 db.UMLElements.Update(el);
                 db.SaveChanges();
                 ViewBag.SuccessMessage = "Edited";
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
+            return View();
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
