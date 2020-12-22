@@ -1,0 +1,14 @@
+﻿@model IEnumerable<UMLCatalog.Models.UMLElement>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h1 class="display-4">Алфавитный указатель</h1>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <li><a asp-controller="UMLElement" asp-action="Index" asp-route-id="@item.Id">@item.Title</a></li>
+    }
+}

@@ -1,0 +1,16 @@
+﻿@model UMLElement
+
+<div class="display-4">@Model.Title</div>
+<div><a asp-controller="UMLElement" asp-action="Edit" asp-route-id="@Model.Id">Редактировать</a> | <a asp-controller="UMLElement" asp-action="Delete" asp-route-id="@Model.Id">Удалить</a></div>
+<p style="font-size: 30px; margin-top: 5px;">@Model.Description</p>
+<div class="display-4">Диаграмма:</div>
+<p style="text-align: center;">
+    <img style='width:350px; height:350px;border-radius:7px; alig' class="img-fluid" src="data:@Model.ImgType;base64,@(Convert.ToBase64String(Model.Picture))" />
+</p>
+@if (Model.Code != null)
+{
+    <div class="display-4">Код:</div>
+    <p style="font-family: 'Courier New'; margin-top: 15px; margin-left: 40px; font-size: 15px;">
+        @Model.Code
+    </p>
+}
