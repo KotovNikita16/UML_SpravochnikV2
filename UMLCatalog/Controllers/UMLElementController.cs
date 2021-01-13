@@ -51,19 +51,31 @@ namespace UMLCatalog.Controllers
         public IActionResult Edit(int? id)
         {
             if (id != null)
-                return View(db.UMLElements.Find(id));
+            {
+                var el = db.UMLElements.Find(id);
+                UMLEdit edit = new UMLEdit { Id = el.Id, Title = el.Title, Description = el.Description, Code = el.Code };
+                return View(edit);
+            }
             return NotFound();
         }
         [HttpPost]
-        public IActionResult Edit(UMLElement el)
+        public IActionResult Edit(UMLEdit edit)
         {
             if (ModelState.IsValid)
             {
-                using (var binaryReader = new BinaryReader(el.File.OpenReadStream()))
+                var el = db.UMLElements.Find(edit.Id);
+                if (edit.File != null)
                 {
-                    el.Picture = binaryReader.ReadBytes((int)el.File.Length);
-                    el.ImgType = el.File.ContentType;
+                    el.File = edit.File;
+                    using (var binaryReader = new BinaryReader(el.File.OpenReadStream()))
+                    {
+                        el.Picture = binaryReader.ReadBytes((int)el.File.Length);
+                        el.ImgType = el.File.ContentType;
+                    }
                 }
+                el.Title = edit.Title;
+                el.Description = edit.Description;
+                el.Code = edit.Code;
                 db.UMLElements.Update(el);
                 db.SaveChanges();
                 ViewBag.SuccessMessage = "Edited";

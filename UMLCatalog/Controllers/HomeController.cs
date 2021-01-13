@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UMLCatalog.Contexts;
 using UMLCatalog.Models;
-using UMLCatalog.Models;
-using UMLCatalog.Contexts;
 
 namespace UMLCatalog.Controllers
 {
@@ -22,9 +20,19 @@ namespace UMLCatalog.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            return View(_context.UMLElements);
+            IEnumerable<UMLElement> Els = from e in _context.UMLElements
+                                         orderby e.Title
+                                         select e;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                Els = from e in Els
+                      where e.Title.Contains(searchString)
+                      select e;
+                ViewData["SearchString"] = searchString;
+            }
+            return View(Els);
         }
 
         public IActionResult Privacy()

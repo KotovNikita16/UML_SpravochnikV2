@@ -1,5 +1,9 @@
 ﻿@model UMLElement
 
+@{
+    ViewData["Title"] = "Удаление страницы";
+}
+
 <h3 class="display-4">Вы действительно хотите удалить страницу "@Model.Title"?</h3>
 <form asp-action="Delete">
     <input type="hidden" asp-for="Id" />

@@ -1,14 +1,45 @@
-﻿@model IEnumerable<UMLCatalog.Models.UMLElement>
+﻿@model IEnumerable<UMLElement>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Алфавитный указатель";
 }
+
+<form asp-controller="Home" asp-action="Index" method="get">
+    <p>
+        Поиск по ключевым словам: <input type="text" name="SearchString" value="@ViewData["SearchString"]" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<a asp-controller="AdvancedSearch" asp-action="Index">Расширенный поиск</a>
+
 <h1 class="display-4">Алфавитный указатель</h1>
 
-@if (Model != null)
-{
+
+@{
+    char l = '\0'; int i = -1;
     foreach (var item in Model)
     {
+        if (l != item.Title[0])
+        {
+            l = item.Title[0];
+            i++;
+            <a href="#@i">@l</a>
+        }
+    }
+
+    l = '\0'; i = -1;
+    foreach (var item in Model)
+    {
+        if (l != item.Title[0])
+        {
+            l = item.Title[0];
+            i++;
+            <p id="@i"><b>@l</b></p>
+        }
         <li><a asp-controller="UMLElement" asp-action="Index" asp-route-id="@item.Id">@item.Title</a></li>
+    }
+    if (l == '\0')
+    {
+        <p>Элементы не найдены.</p>
     }
 }
