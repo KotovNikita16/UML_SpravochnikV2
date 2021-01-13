@@ -22,4 +22,9 @@
             <input type="submit" value="Войти" class="btn btn-outline-dark" />
         </div>
     </div>
+    <input type="hidden" name="lastAction" value="@ViewData["Referer"]" />
+</form>
+<form asp-action="Back" asp-controller="Account" asp-anti-forgery="true">
+    <input type="submit" value="Назад" class="btn btn-danger" />
+    <input type="hidden" name="lastAction" value="@ViewData["Referer"]" />
 </form>

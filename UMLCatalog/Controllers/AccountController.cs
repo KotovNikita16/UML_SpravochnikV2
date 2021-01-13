@@ -53,11 +53,12 @@ namespace Lab6.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewData["Referer"] = Request.Headers["Referer"].ToString();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model, string lastAction)
         {
             if (ModelState.IsValid)
             {
@@ -68,13 +69,22 @@ namespace Lab6.Controllers
                 {
                     await Authenticate(user);
 
+                    if (lastAction != null)
+                        return Redirect(lastAction);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
             return View(model);
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Back(string lastAction)
+        {
+            if (lastAction != null)
+                return Redirect(lastAction);
+            return RedirectToAction("Index", "Home");
+        }
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
