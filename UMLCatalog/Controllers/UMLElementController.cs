@@ -42,7 +42,7 @@ namespace UMLCatalog.Controllers
                 }
                 db.Add(el);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", new { el.Id });
             }
             return View();
         }
@@ -79,7 +79,7 @@ namespace UMLCatalog.Controllers
                 db.UMLElements.Update(el);
                 db.SaveChanges();
                 ViewBag.SuccessMessage = "Edited";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", new { el.Id });
             }
             return View();
         }

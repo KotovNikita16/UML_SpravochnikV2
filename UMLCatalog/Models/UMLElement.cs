@@ -10,6 +10,7 @@ namespace UMLCatalog.Models
 {
     public class UMLElement
     {
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Необходимо заполнить!")]
         public string Title { get; set; }

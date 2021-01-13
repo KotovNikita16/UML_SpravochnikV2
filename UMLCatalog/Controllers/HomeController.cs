@@ -28,7 +28,7 @@ namespace UMLCatalog.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 Els = from e in Els
-                      where e.Title.Contains(searchString)
+                      where e.Title.ToUpper().Contains(searchString.ToUpper())
                       select e;
                 ViewData["SearchString"] = searchString;
             }
