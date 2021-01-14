@@ -4,20 +4,16 @@
     ViewData["Title"] = "Алфавитный указатель";
 }
 
-<form asp-controller="Home" asp-action="Index" method="get">
-    <p>
-        Поиск: <input type="text" name="SearchString" value="@ViewData["SearchString"]" />
-        <input type="submit" value="Искать" />
-    </p>
-</form>
 
 <form asp-controller="Home" asp-action="DescriptionSearch" method="get">
-    <p>
+    <p style="text-align: center">
         Поиск по описанию: <input type="text" name="SearchStringDesc" value="@ViewData["SearchStringDesc"]" />
         <input type="submit" value="Искать" />
     </p>
 </form>
-<a asp-controller="AdvancedSearch" asp-action="Index">Расширенный поиск</a>
+<div style="display: flex; justify-content: center;">
+<a asp-controller="AdvancedSearch" asp-action="Index" style="display: flex; justify-content: center; width: 408px;"><input type="button" style="width: 408px;" value="Расширенный поиск" /></a>
+</div>
 
 <h1 class="display-4">Алфавитный указатель</h1>
 

@@ -21,24 +21,33 @@
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
-                                <li class="nav-item">
+                                <li class="nav-item" style="padding-top: 5px;">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Здравствуйте, Александр Николаевич!</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="padding-top: 5px;">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="padding-top: 5px;">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="UMLElement" asp-action="Create">Создать новый элемент</a>
                                 </li>
                             }
                             else
                             {
-                                <li class="nav-item">
+                                <li class="nav-item" style="padding-top: 5px;">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Авторизоваться</a>
                                 </li>
                             }
                         }
+                        <li class="nav-item" style="padding-top: 10px; height: 45px; margin-right: 0px; margin-left: auto;">
+                            <form asp-controller="Home" asp-action="Index" method="get">
+                                <p>
+                                    Поиск: <input type="text" name="SearchString" value="@ViewData["SearchString"]"/>
+                                    <input type="submit" value="Искать"/>
+                                </p>
+                            </form>
+                        </li>
                     </ul>
+ 
                 </div>
             </div>
         </nav>
