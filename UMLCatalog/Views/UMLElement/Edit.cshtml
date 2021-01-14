@@ -28,6 +28,25 @@
         <textarea asp-for="Tags" class="form-control" style="font-family: 'Courier New';"></textarea>
     </div>
     <div class="form-group">
+        <label asp-for="DiagramOrElement" class="control-label">Что будет на странице?</label><br />
+        @{
+            if (Model.DiagramOrElement == "Element")
+            {
+                <input asp-for="DiagramOrElement" type="radio" value="Element" checked />
+                <span>Элемент</span> <br />
+                <input asp-for="DiagramOrElement" type="radio" value="Diagram" />
+                <span>Диаграмма</span> <br />
+            }
+            else
+            {
+                <input asp-for="DiagramOrElement" type="radio" value="Element" />
+                <span>Элемент</span> <br />
+                <input asp-for="DiagramOrElement" type="radio" value="Diagram" checked />
+                <span>Диаграмма</span> <br />
+            }
+        }
+    </div>
+    <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-primary" />
     </div>
 </form>

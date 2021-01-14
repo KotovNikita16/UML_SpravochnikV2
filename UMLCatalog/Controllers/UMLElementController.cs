@@ -53,7 +53,7 @@ namespace UMLCatalog.Controllers
             if (id != null)
             {
                 var el = db.UMLElements.Find(id);
-                UMLEdit edit = new UMLEdit { Id = el.Id, Title = el.Title, Description = el.Description, Code = el.Code, Tags = el.Tags };
+                UMLEdit edit = new UMLEdit { Id = el.Id, Title = el.Title, Description = el.Description, Code = el.Code, Tags = el.Tags, DiagramOrElement = el.DiagramOrElement };
                 return View(edit);
             }
             return NotFound();
@@ -77,6 +77,7 @@ namespace UMLCatalog.Controllers
                 el.Description = edit.Description;
                 el.Code = edit.Code;
                 el.Tags = edit.Tags;
+                el.DiagramOrElement = edit.DiagramOrElement;
                 db.UMLElements.Update(el);
                 db.SaveChanges();
                 ViewBag.SuccessMessage = "Edited";

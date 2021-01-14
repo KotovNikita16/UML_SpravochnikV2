@@ -38,17 +38,24 @@ namespace UMLCatalog.Controllers
         public IActionResult DescriptionSearch(string searchStringDesc)
         {
             IEnumerable<UMLElement> Els = from e in _context.UMLElements
-                                          orderby e.Tags
+                                          orderby e.Title
                                           select e;
             if (!string.IsNullOrEmpty(searchStringDesc))
             {
                 Els = from e in Els
-                      where e.Tags.ToUpper().Contains(searchStringDesc.ToUpper()) ||
+                      where NulTags(e, searchStringDesc) ||
                       e.Description.ToUpper().Contains(searchStringDesc.ToUpper())
                       select e;
                 ViewData["SearchStringDesc"] = searchStringDesc;
             }
             return View(Els);
+        }
+
+        private bool NulTags(UMLElement el, string searchStringDesc)
+        {
+            if (el.Tags == null) return false;
+            if (el.Tags.ToUpper().Contains(searchStringDesc.ToUpper())) return true;
+            return false;
         }
 
         public IActionResult Privacy()
