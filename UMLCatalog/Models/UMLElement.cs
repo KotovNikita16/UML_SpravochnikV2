@@ -23,5 +23,6 @@ namespace UMLCatalog.Models
         public IFormFile File { get; set; }
         public string ImgType { get; set; }
         public string Code { get; set; }
+        public string Tags { get; set; }
     }
 }

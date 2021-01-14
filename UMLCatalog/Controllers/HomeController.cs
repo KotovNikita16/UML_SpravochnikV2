@@ -35,6 +35,22 @@ namespace UMLCatalog.Controllers
             return View(Els);
         }
 
+        public IActionResult DescriptionSearch(string searchStringDesc)
+        {
+            IEnumerable<UMLElement> Els = from e in _context.UMLElements
+                                          orderby e.Tags
+                                          select e;
+            if (!string.IsNullOrEmpty(searchStringDesc))
+            {
+                Els = from e in Els
+                      where e.Tags.ToUpper().Contains(searchStringDesc.ToUpper()) ||
+                      e.Description.ToUpper().Contains(searchStringDesc.ToUpper())
+                      select e;
+                ViewData["SearchStringDesc"] = searchStringDesc;
+            }
+            return View(Els);
+        }
+
         public IActionResult Privacy()
         {
             return View();
