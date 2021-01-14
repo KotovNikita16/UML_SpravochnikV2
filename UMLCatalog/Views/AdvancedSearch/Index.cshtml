@@ -8,24 +8,87 @@
 <h1>Расширенный поиск</h1>
 
 <form asp-controller="AdvancedSearch" asp-action="Index" method="get">
-    <p>
-        Поиск по ключевым словам: <input type="text" name="SearchString" value="@ViewData["SearchString"]" />
-        <input type="submit" value="Filter" />
-    </p>
+    <select name="SortType">
+        @{
+            switch (ViewData["SortType"])
+            {
+                case "No":
+                    <option value="No" selected>Нет</option>
+                    <option value="Az">По возрастанию</option>
+                    <option value="Za">По убыванию</option>
+                    break;
+                case "Az":
+                    <option value="No">Нет</option>
+                    <option value="Az" selected>По возрастанию</option>
+                    <option value="Za">По убыванию</option>
+                    break;
+                default:
+                    <option value="No">Нет</option>
+                    <option value="Az">По возрастанию</option>
+                    <option value="Za" selected>По убыванию</option>
+                    break;
+            }
+        }
+    </select>
+    <select name="Code">
+        @{
+            switch (ViewData["Code"])
+            {
+                case "No":
+                    <option value="No" selected>Любые</option>
+                    <option value="Code">С кодом</option>
+                    <option value="Without">Без кода</option>
+                    break;
+                case "Code":
+                    <option value="No">Любые</option>
+                    <option value="Code" selected>С кодом</option>
+                    <option value="Without">Без кода</option>
+                    break;
+                default:
+                    <option value="No">Любые</option>
+                    <option value="Code">С кодом</option>
+                    <option value="Without" selected>Без кода</option>
+                    break;
+            }
+        }
+    </select>
+    <select name="DiagramOrElement">
+        @{
+            switch (ViewData["DiagramOrElement"])
+            {
+                case "No":
+                    <option value="No" selected>Любые</option>
+                    <option value="Diagram">Диаграммы</option>
+                    <option value="Element">Элементы</option>
+                    break;
+                case "Diagram":
+                    <option value="No">Любые</option>
+                    <option value="Diagram" selected>Диаграммы</option>
+                    <option value="Element">Элементы</option>
+                    break;
+                default:
+                    <option value="No">Любые</option>
+                    <option value="Diagram">Диаграммы</option>
+                    <option value="Element" selected>Элементы</option>
+                    break;
+            }
+        }
+    </select>
+    <input type="submit" value="Показать" />
 </form>
 
 @{
-    char l = '\0';
-    foreach (var item in Model)
-    {
-        if (l != item.Title[0])
-        {
-            l = item.Title[0];
-        }
+                char l = '\0';
+                foreach (var item in Model)
+                {
+                    if (l != item.Title[0])
+                    {
+                        l = item.Title[0];
+                    }
         <li><a asp-controller="UMLElement" asp-action="Index" asp-route-id="@item.Id">@item.Title</a></li>
-    }
-    if (l == '\0')
-    {
+                }
+                if (l == '\0')
+                {
         <p>Элементы не найдены.</p>
-    }
-}
+                }
+            }

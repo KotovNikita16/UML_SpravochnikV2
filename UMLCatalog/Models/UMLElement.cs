@@ -24,5 +24,7 @@ namespace UMLCatalog.Models
         public string ImgType { get; set; }
         public string Code { get; set; }
         public string Tags { get; set; }
+        [Required(ErrorMessage = "Необходимо выбрать тип содержимого!")]
+        public string DiagramOrElement { get; set; }
     }
 }

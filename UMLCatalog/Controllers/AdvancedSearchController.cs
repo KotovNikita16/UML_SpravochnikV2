@@ -15,9 +15,56 @@ namespace UMLCatalog.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(string searchString)
+        public IActionResult Index(string SortType = "No", string Code = "No", string DiagramOrElement = "No")
         {
-            return View(_context.UMLElements);
+            IEnumerable<UMLElement> els = _context.UMLElements;
+            switch (SortType)
+            {
+                case "Az":
+                    els = from e in els
+                          orderby e.Title
+                          select e;
+                    break;
+                case "Za":
+                    els = els.OrderByDescending(e => e.Title);
+                    break;
+                default:
+                    break;
+            }
+            switch (Code)
+            {
+                case "Code":
+                    els = from e in els
+                          where e.Code != null
+                          select e;
+                    break;
+                case "Without":
+                    els = from e in els
+                          where e.Code == null
+                          select e;
+                    break;
+                default:
+                    break;
+            }
+            switch (DiagramOrElement)
+            {
+                case "Diagram":
+                    els = from e in els
+                          where e.DiagramOrElement == "Diagram"
+                          select e;
+                    break;
+                case "Element":
+                    els = from e in els
+                          where e.DiagramOrElement == "Element"
+                          select e;
+                    break;
+                default:
+                    break;
+            }
+            ViewData["SortType"] = SortType;
+            ViewData["Code"] = Code;
+            ViewData["DiagramOrElement"] = DiagramOrElement;
+            return View(els);
         }
     }
 }

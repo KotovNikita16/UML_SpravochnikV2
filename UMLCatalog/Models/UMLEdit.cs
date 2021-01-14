@@ -14,8 +14,11 @@ namespace UMLCatalog.Models
         public string Title { get; set; }
         [Required(ErrorMessage = "Необходимо заполнить!")]
         public string Description { get; set; }
+        [Required(ErrorMessage = "Необходимо выбрать тип содержимого!")]
+        public string DiagramOrElement { get; set; }
         public IFormFile File { get; set; }
         public string Code { get; set; }
         public string Tags { get; set; }
+        
     }
 }

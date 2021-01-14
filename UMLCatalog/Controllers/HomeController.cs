@@ -38,7 +38,7 @@ namespace UMLCatalog.Controllers
         public IActionResult DescriptionSearch(string searchStringDesc)
         {
             IEnumerable<UMLElement> Els = from e in _context.UMLElements
-                                          orderby e.Tags
+                                          orderby e.Title
                                           select e;
             if (!string.IsNullOrEmpty(searchStringDesc))
             {
